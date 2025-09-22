@@ -1,0 +1,104 @@
+{
+  "permissions": {
+    "file_operations": {
+      "read": ["**/*"],
+      "write": ["src/**/*", "public/**/*", "*.md", "*.json", "*.js", "*.jsx", "*.ts", "*.tsx", "*.css", "*.html"],
+      "create": ["src/**/*", "public/**/*", "docs/**/*"],
+      "delete": ["src/**/*", "public/**/*", "temp/**/*"]
+    },
+    "commands": {
+      "allowed": ["npm", "bun", "git", "supabase", "vite", "eslint", "vercel", "tsc"],
+      "restricted": ["rm -rf", "sudo", "chmod 777"]
+    }
+  },
+  "project_config": {
+    "type": "react-vite-supabase-vercel",
+    "package_manager": "npm",
+    "build_tool": "vite",
+    "backend": "supabase",
+    "api": "supabase-edge-functions",
+    "frontend_deployment": "vercel",
+    "api_deployment": "supabase-cli",
+    "linting": "eslint",
+    "styling": "css",
+    "typescript": true
+  },
+  "development": {
+    "auto_save": true,
+    "hot_reload": true,
+    "lint_on_save": true,
+    "format_on_save": true
+  },
+  "deployment": {
+    "frontend": {
+      "platform": "vercel",
+      "build_command": "npm run build",
+      "output_directory": "dist",
+      "environment_variables": {
+        "required": ["VITE_SUPABASE_URL", "VITE_SUPABASE_ANON_KEY"],
+        "optional": ["VITE_APP_NAME", "VITE_DEBUG"],
+        "note": "Variables externalized per repo - never log or expose"
+      }
+    },
+    "api": {
+      "platform": "supabase-edge-functions",
+      "deploy_command": "supabase functions deploy",
+      "runtime": "deno",
+      "directory": "supabase/functions",
+      "development_mode": "remote_only",
+      "environment_variables": {
+        "required": ["SUPABASE_SERVICE_ROLE_KEY"],
+        "optional": ["FUNCTION_DEBUG"],
+        "note": "All secrets externalized and secured"
+      }
+    }
+  },
+  "ai_assistant": {
+    "session_start": {
+      "load_daily_updates": true,
+      "load_architecture": true,
+      "load_coding_standards": true,
+      "check_recent_todos": true
+    },
+    "security": {
+      "never_log_secrets": true,
+      "hide_environment_variables": true,
+      "externalized_config": true,
+      "repo_specific_secrets": true
+    },
+    "auto_fix_enabled": true,
+    "suggest_improvements": true,
+    "code_review": true,
+    "test_generation": false,
+    "tech_stack_awareness": {
+      "react_patterns": true,
+      "vite_optimization": true,
+      "supabase_best_practices": true,
+      "edge_functions_support": true,
+      "vercel_deployment": true,
+      "typescript_integration": true
+    },
+    "daily_updates": {
+      "enabled": true,
+      "format": "concise",
+      "max_lines_per_session": 7,
+      "load_limit": 50,
+      "auto_create_date_files": true
+    }
+  },
+
+  
+    "hooks": {
+      "SessionEnd": [
+        {
+          "hooks": [
+            {
+              "type": "command",
+              "command": "git add . && git commit -m 'Auto-save: session ended' || echo 'Nothing to commit'"
+            }
+          ]
+        }
+      ]
+    }
+  
+} 

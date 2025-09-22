@@ -1,0 +1,107 @@
+{
+  "mcp_servers": {
+    "github": {
+      "command": "claude",
+      "args": [
+        "mcp",
+        "add",
+        "--transport",
+        "http",
+        "github",
+        "https://mcp.github.com/mcp"
+      ],
+      "env": {
+        "GITHUB_TOKEN": "{{GITHUB_TOKEN}}"
+      }
+    },
+    "supabase": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase/mcp-server-supabase@latest",
+        "--read-only",
+        "--project-ref={{SUPABASE_PROJECT_REF}}"
+      ],
+      "env": {
+        "SUPABASE_ACCESS_TOKEN": "{{SUPABASE_ACCESS_TOKEN}}",
+        "SUPABASE_URL": "{{SUPABASE_URL}}",
+        "SUPABASE_SERVICE_ROLE_KEY": "{{SUPABASE_SERVICE_KEY}}"
+      }
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-filesystem",
+        "--allowed-dirs",
+        "."
+      ],
+      "env": {}
+    }
+  },
+  "hooks": {
+    "pre_commit": {
+      "enabled": true,
+      "script": ".claude/hooks/pre-commit.sh"
+    },
+    "post_commit": {
+      "enabled": true,
+      "script": ".claude/hooks/post-commit.sh"
+    },
+    "file_change": {
+      "enabled": true,
+      "script": ".claude/hooks/file-change.sh",
+      "debounce": 5000,
+      "include": [
+        "src/**/*.{js,jsx,ts,tsx}",
+        "package.json",
+        "*.md"
+      ],
+      "exclude": [
+        "node_modules/**",
+        "dist/**",
+        "build/**",
+        ".git/**"
+      ]
+    },
+    "session_start": {
+      "enabled": true,
+      "script": ".claude/hooks/session-start.sh"
+    },
+    "session_end": {
+      "enabled": true,
+      "script": ".claude/hooks/session-end.sh"
+    }
+  },
+  "memory": {
+    "enabled": true,
+    "daily_updates": {
+      "enabled": true,
+      "directory": "./daily-updates",
+      "format": "markdown",
+      "max_entries_per_day": 50
+    },
+    "context_files": [
+      ".claude/CLAUDE.md",
+      "package.json",
+      "README.md",
+      "daily-updates/{{TODAY}}.md"
+    ],
+    "auto_save_interval": 30000
+  },
+  "project": {
+    "name": "{{PROJECT_NAME}}",
+    "type": "react-vite-supabase",
+    "repository": "{{GITHUB_URL}}",
+    "workspace": "{{WORKSPACE_PATH}}"
+  },
+  "notifications": {
+    "webhook_url": "{{WEBHOOK_URL}}",
+    "events": [
+      "commit",
+      "build",
+      "error",
+      "session_start",
+      "session_end"
+    ]
+  }
+}
