@@ -8,6 +8,18 @@ function App() {
 
   return (
     <>
+      <nav className="navbar">
+        <div className="nav-logo">
+          <a href="https://wavecoding.ai">
+            <img src={viteLogo} className="logo" alt="Vite logo" style={{height: '2em'}} />
+          </a>
+        </div>
+        <div className="nav-links">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
       <div>
         <a href="https://wavecoding.ai" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
