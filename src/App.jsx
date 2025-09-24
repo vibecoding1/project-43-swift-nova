@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import Navbar from './components/Navbar'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -12,19 +13,7 @@ function App() {
 
   return (
     <>
-      <nav className="navbar">
-        <div className="nav-logo">
-          <a href="https://wavecoding.ai">
-            <img src={viteLogo} className="logo" alt="Vite logo" style={{height: '2em'}} />
-          </a>
-        </div>
-        <div className="nav-links">
-          <a href="#home" className={window.location.hash === '#home' ? 'active' : ''}>Home</a>
-          <a href="#about" className={window.location.hash === '#about' ? 'active' : ''}>About</a>
-          <a href="#services" className={window.location.hash === '#services' ? 'active' : ''}>Services</a>
-          <a href="#contact" className={window.location.hash === '#contact' ? 'active' : ''}>Contact</a>
-        </div>
-      </nav>
+      <Navbar />
       <div>
         <a href="https://wavecoding.ai" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
