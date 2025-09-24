@@ -1,10 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [messages, setMessages] = useState([
+    { id: 1, text: "Welcome to your new website!", type: "info" },
+    { id: 2, text: "Built with React and Vite", type: "success" }
+  ])
 
   return (
     <>
@@ -30,6 +34,13 @@ function App() {
         </a>
       </div>
       <h1>Your new website is initialized by WAVECODING.AI</h1>
+      <div className="messages">
+        {messages.map(message => (
+          <div key={message.id} className={`message ${message.type}`}>
+            {message.text}
+          </div>
+        ))}
+      </div>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
