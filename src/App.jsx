@@ -15,9 +15,10 @@ function App() {
           </a>
         </div>
         <div className="nav-links">
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
+          <a href="#home" className={window.location.hash === '#home' ? 'active' : ''}>Home</a>
+          <a href="#about" className={window.location.hash === '#about' ? 'active' : ''}>About</a>
+          <a href="#services" className={window.location.hash === '#services' ? 'active' : ''}>Services</a>
+          <a href="#contact" className={window.location.hash === '#contact' ? 'active' : ''}>Contact</a>
         </div>
       </nav>
       <div>
